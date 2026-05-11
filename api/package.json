@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "cors": "^2.8",
-    "express": "^4.19"
+    "express": "^4.19",
+    "zod": "^3.23"
   }
 }

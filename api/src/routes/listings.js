@@ -1,27 +1,38 @@
 import { Router } from 'express';
+import { z } from 'zod';
 
 import { applyFilters } from '../lib/filters.js';
 import { getAll } from '../lib/store.js';
 
 const router = Router();
 
-function toInt(v) {
-  if (v == null) return undefined;
-  const n = parseInt(v, 10);
-  return Number.isFinite(n) ? n : undefined;
-}
+const intish = z.coerce.number().int().nonnegative();
+
+const QuerySchema = z.object({
+  minPrice: intish.optional(),
+  maxPrice: intish.optional(),
+  location: z.string().min(1).max(120).optional(),
+  status: z.enum(['repossessed', 'priced_for_quick_sale']).optional(),
+  sort: z.enum(['price_asc', 'price_desc', 'recent']).optional(),
+  limit: intish.max(200).default(50),
+  offset: intish.default(0),
+}).refine(
+  (q) => q.minPrice == null || q.maxPrice == null || q.minPrice <= q.maxPrice,
+  { message: 'minPrice must be <= maxPrice', path: ['minPrice'] },
+);
 
 router.get('/', (req, res) => {
-  const q = {
-    minPrice: toInt(req.query.minPrice),
-    maxPrice: toInt(req.query.maxPrice),
-    location: req.query.location || undefined,
-    status: req.query.status || undefined,
-    sort: req.query.sort || undefined,
-    limit: Math.min(toInt(req.query.limit) ?? 50, 200),
-    offset: toInt(req.query.offset) ?? 0,
-  };
-  res.json(applyFilters(getAll(), q));
+  const parsed = QuerySchema.safeParse(req.query);
+  if (!parsed.success) {
+    return res.status(400).json({
+      error: 'bad_request',
+      issues: parsed.error.issues.map((i) => ({
+        path: i.path.join('.'),
+        message: i.message,
+      })),
+    });
+  }
+  res.json(applyFilters(getAll(), parsed.data));
 });
 
 export default router;
