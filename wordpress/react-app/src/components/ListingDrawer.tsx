@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 
 import { formatDate, formatPrice, formatStatus } from '../lib/priceFormat';
 import type { Listing } from '../lib/types';
+import { ListingGallery } from './ListingGallery';
 import styles from './ListingDrawer.module.css';
 
 interface Props {
@@ -99,6 +100,8 @@ export function ListingDrawer({ listing, onClose }: Props) {
                 ×
               </button>
             </header>
+
+            <ListingGallery images={listing.images || []} alt={listing.title || 'Property photo'} />
 
             <div className={styles.eyebrow}>{listing.postcode || 'No postcode'}</div>
             <h2 id="drawer-title" className={styles.title}>

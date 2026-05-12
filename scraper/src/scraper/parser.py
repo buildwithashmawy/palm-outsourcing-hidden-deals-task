@@ -21,6 +21,8 @@ TITLE_RE = re.compile(r"\d+\s+bedroom .+? for sale in .+?,\s*[A-Z]{1,2}\d[A-Z\d]
 POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*$")
 # TODO: brittle if site changes the comma-separated price formatting (e.g. starts using spaces)
 PRICE_RE = re.compile(r"(?:£\s*)?(\d{1,3}(?:,\d{3})+|\d{5,})")
+IMAGE_HOST_RE = re.compile(r"^https?://[\w.-]*digitaloceanspaces\.com/", re.I)
+MAX_IMAGES_PER_LISTING = 6
 
 
 def _canonical_url(href: str) -> str:
@@ -69,6 +71,22 @@ def _find_card(anchor: Tag) -> Optional[Tag]:
         if "Added on" in text and STATUS_RE.search(text) and len(text) < 1500:
             return node
     return None
+
+
+def _extract_images(card: Tag) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for img in card.find_all("img"):
+        src = img.get("src") or img.get("data-src") or ""
+        if not src or not IMAGE_HOST_RE.match(src):
+            continue
+        if src in seen:
+            continue
+        seen.add(src)
+        out.append(src)
+        if len(out) >= MAX_IMAGES_PER_LISTING:
+            break
+    return out
 
 
 def _extract_listing(card: Tag, canonical_url: str, scraped_at: str) -> Listing:
@@ -135,4 +153,5 @@ def _extract_listing(card: Tag, canonical_url: str, scraped_at: str) -> Listing:
         added_on=added_on,
         url=canonical_url,
         scraped_at=scraped_at,
+        images=_extract_images(card),
     )

@@ -3,160 +3,220 @@
   "total": 12,
   "results": [
     {
-      "id": "4ec6cd9ada7f",
-      "title": "4 bedroom detached house for sale in Maple Close, Messingham, Scunthorpe, DN17",
-      "price": 230000,
-      "price_display": "£230,000",
-      "location": "Maple Close, Messingham, Scunthorpe",
-      "postcode": "DN17",
-      "status": "repossessed",
-      "discount_pct": 32.6,
-      "added_on": "2026-04-22",
-      "url": "https://repossessedhousesforsale.com/properties/174776117",
-      "scraped_at": "2026-05-12T10:31:05+00:00"
-    },
-    {
-      "id": "443198c50f1b",
-      "title": "2 bedroom terraced house for sale in Spencers Croft, Harlow, CM18",
-      "price": 280000,
-      "price_display": "£280,000",
-      "location": "Spencers Croft, Harlow",
-      "postcode": "CM18",
-      "status": "repossessed",
-      "discount_pct": 0.0,
-      "added_on": "2026-04-29",
-      "url": "https://repossessedhousesforsale.com/properties/87834474",
-      "scraped_at": "2026-05-12T10:30:40+00:00"
-    },
-    {
-      "id": "925428049505",
-      "title": "3 bedroom semi-detached house for sale in Roberts Road, Edlington, Doncaster, DN12",
-      "price": 120000,
-      "price_display": "£120,000",
-      "location": "Roberts Road, Edlington, Doncaster",
-      "postcode": "DN12",
-      "status": "priced_for_quick_sale",
-      "discount_pct": 42.0,
-      "added_on": "2026-04-29",
-      "url": "https://repossessedhousesforsale.com/properties/87856083",
-      "scraped_at": "2026-05-12T10:30:37+00:00"
-    },
-    {
-      "id": "498a06d06127",
-      "title": "1 bedroom flat for sale in The Oaks, London, SE18",
-      "price": 185000,
-      "price_display": "£185,000",
-      "location": "The Oaks, London",
-      "postcode": "SE18",
-      "status": "priced_for_quick_sale",
-      "discount_pct": 21.3,
-      "added_on": "2026-04-22",
-      "url": "https://repossessedhousesforsale.com/properties/174795584",
-      "scraped_at": "2026-05-12T10:31:11+00:00"
-    },
-    {
-      "id": "e30798809dc5",
-      "title": "2 bedroom flat for sale in Cookham Road, Maidenhead, SL6",
-      "price": 225000,
-      "price_display": "£225,000",
-      "location": "Cookham Road, Maidenhead",
-      "postcode": "SL6",
-      "status": "priced_for_quick_sale",
-      "discount_pct": 34.6,
-      "added_on": "2026-04-27",
-      "url": "https://repossessedhousesforsale.com/properties/174980150",
-      "scraped_at": "2026-05-12T10:30:47+00:00"
-    },
-    {
-      "id": "f712079741b3",
-      "title": "5 bedroom detached house for sale in York Way, Northampton, NN5",
-      "price": 495000,
-      "price_display": "£495,000",
-      "location": "York Way, Northampton",
-      "postcode": "NN5",
-      "status": "priced_for_quick_sale",
-      "discount_pct": 39.9,
-      "added_on": "2026-04-27",
-      "url": "https://repossessedhousesforsale.com/properties/174981752",
-      "scraped_at": "2026-05-12T10:30:47+00:00"
-    },
-    {
-      "id": "7ff8189c83ae",
-      "title": "2 bedroom terraced house for sale in Hastings Road, Bolton, BL1",
-      "price": 159950,
-      "price_display": "£159,950",
-      "location": "Hastings Road, Bolton",
-      "postcode": "BL1",
-      "status": "priced_for_quick_sale",
-      "discount_pct": 0.0,
-      "added_on": "2026-04-28",
-      "url": "https://repossessedhousesforsale.com/properties/87779103",
-      "scraped_at": "2026-05-12T10:30:45+00:00"
-    },
-    {
-      "id": "4535b6898f6a",
-      "title": "3 bedroom detached house for sale in High Stell, Middleton St. George, Darlington, DL2",
-      "price": 255000,
-      "price_display": "£255,000",
-      "location": "High Stell, Middleton St. George, Darlington",
-      "postcode": "DL2",
-      "status": "priced_for_quick_sale",
-      "discount_pct": 0.4,
-      "added_on": "2026-04-28",
-      "url": "https://repossessedhousesforsale.com/properties/87793524",
-      "scraped_at": "2026-05-12T10:30:40+00:00"
-    },
-    {
-      "id": "2b77b3a2bf6a",
-      "title": "1 bedroom flat for sale in Staple Hill Road, Fishponds, Bristol, BS16",
-      "price": 159950,
-      "price_display": "£159,950",
-      "location": "Staple Hill Road, Fishponds, Bristol",
-      "postcode": "BS16",
-      "status": "priced_for_quick_sale",
-      "discount_pct": 9.6,
-      "added_on": "2026-04-29",
-      "url": "https://repossessedhousesforsale.com/properties/87837987",
-      "scraped_at": "2026-05-12T10:30:40+00:00"
-    },
-    {
-      "id": "313af42847e6",
-      "title": "3 bedroom town house for sale in Heatherfields Crescent, Rossington, Doncaster, DN11",
-      "price": 183000,
-      "price_display": "£183,000",
-      "location": "Heatherfields Crescent, Rossington, Doncaster",
-      "postcode": "DN11",
-      "status": "priced_for_quick_sale",
-      "discount_pct": 0.0,
-      "added_on": "2026-04-22",
-      "url": "https://repossessedhousesforsale.com/properties/174785765",
-      "scraped_at": "2026-05-12T10:31:08+00:00"
-    },
-    {
-      "id": "b01ae7304f26",
-      "title": "2 bedroom semi-detached house for sale in Borman Close, Nottingham, NG6",
-      "price": 170000,
-      "price_display": "£170,000",
-      "location": "Borman Close, Nottingham",
-      "postcode": "NG6",
+      "id": "d54cda86e03f",
+      "title": "3 bedroom semi-detached house for sale in Lavenham Way, Stowmarket, IP14",
+      "price": 240000,
+      "price_display": "£240,000",
+      "location": "Lavenham Way, Stowmarket",
+      "postcode": "IP14",
       "status": "priced_for_quick_sale",
       "discount_pct": 0.0,
       "added_on": "2026-04-23",
-      "url": "https://repossessedhousesforsale.com/properties/174845399",
-      "scraped_at": "2026-05-12T10:31:00+00:00"
+      "url": "https://repossessedhousesforsale.com/properties/174823205",
+      "scraped_at": "2026-05-12T11:52:11+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174823205/images/img0_1d5b12cf8ab6a5e4777f31c87bf1517c_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174823205/images/img1_7e66a3cf41684a80e27154170cdf6e0c_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174823205/images/img2_6d1b0940f06d021f7a92a3146969801c_b.jpg"
+      ]
     },
     {
-      "id": "5bd77e4aa8d5",
-      "title": "2 bedroom flat for sale in Lower Road, Kenley, CR8",
-      "price": 210000,
-      "price_display": "£210,000",
-      "location": "Lower Road, Kenley",
-      "postcode": "CR8",
-      "status": "repossessed",
-      "discount_pct": 37.1,
+      "id": "1bccd0b4278d",
+      "title": "3 bedroom semi-detached house for sale in Victoria Road, Skegness, PE25",
+      "price": 153500,
+      "price_display": "£153,500",
+      "location": "Victoria Road, Skegness",
+      "postcode": "PE25",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 0.0,
+      "added_on": "2026-04-28",
+      "url": "https://repossessedhousesforsale.com/properties/87789474",
+      "scraped_at": "2026-05-12T11:51:46+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87789474/images/img0_262c27b679c9ced055c8a33fbf5e46dd_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87789474/images/img1_aa03d98aeeab3633a40a7bba227daec2_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87789474/images/img2_89796217e6960ff96eca1d3928cf380f_b.jpg"
+      ]
+    },
+    {
+      "id": "6989451bb2c9",
+      "title": "2 bedroom semi-detached house for sale in Harwood Avenue, Branston, Burton-on-Trent, DE14",
+      "price": 180000,
+      "price_display": "£180,000",
+      "location": "Harwood Avenue, Branston, Burton-on-Trent",
+      "postcode": "DE14",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 0.0,
       "added_on": "2026-04-29",
-      "url": "https://repossessedhousesforsale.com/properties/87857772",
-      "scraped_at": "2026-05-12T10:30:40+00:00"
+      "url": "https://repossessedhousesforsale.com/properties/87831564",
+      "scraped_at": "2026-05-12T11:51:44+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87831564/images/img0_95836c068f695356d11a7dc4b1bb2e45_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87831564/images/img1_d5df4ea1032d28d2a98429b45b8004ad_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87831564/images/img2_668a27aeac412aaec202e5f62a10f0b8_b.jpg"
+      ]
+    },
+    {
+      "id": "3ec7d72f3276",
+      "title": "3 bedroom terraced house for sale in 11 Bicton Avenue, St Peters, Worcester, WR5",
+      "price": 260000,
+      "price_display": "£260,000",
+      "location": "11 Bicton Avenue, St Peters, Worcester",
+      "postcode": "WR5",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 0.0,
+      "added_on": "2026-04-22",
+      "url": "https://repossessedhousesforsale.com/properties/174799211",
+      "scraped_at": "2026-05-12T11:52:13+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174799211/images/img0_edd2cb696327e46f160411411b5d4b9c_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174799211/images/img1_fcb22ea05538ff2d778b98d0f6820866_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174799211/images/img2_c4fd838b7724329423b6e50ef6857057_b.jpg"
+      ]
+    },
+    {
+      "id": "bc1b296aeec2",
+      "title": "3 bedroom semi-detached house for sale in Carlton Court, Birkenshaw, BD11",
+      "price": 220000,
+      "price_display": "£220,000",
+      "location": "Carlton Court, Birkenshaw",
+      "postcode": "BD11",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 9.2,
+      "added_on": "2026-04-27",
+      "url": "https://repossessedhousesforsale.com/properties/174948392",
+      "scraped_at": "2026-05-12T11:51:54+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174948392/images/img0_2102156a6f7fcc40e9d9fbb533150a0d_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174948392/images/img1_b0b26b6dd76b8755f61c1c44275d4a8a_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174948392/images/img2_9661dbcc642e979af1eaa2a6ff88cbe3_b.jpg"
+      ]
+    },
+    {
+      "id": "8c1dfdfb3486",
+      "title": "2 bedroom flat for sale in Hucclecote Road, Huccelcote, GL3",
+      "price": 130000,
+      "price_display": "£130,000",
+      "location": "Hucclecote Road, Huccelcote",
+      "postcode": "GL3",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 18.9,
+      "added_on": "2026-04-27",
+      "url": "https://repossessedhousesforsale.com/properties/174969281",
+      "scraped_at": "2026-05-12T11:51:51+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174969281/images/img0_b560294a36966f35ad634db9f3415d27_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174969281/images/img1_a5dbc6ccaf88b04a1553ad7c74a39118_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174969281/images/img2_15b358125ff7668f3cc6d8c13adf865e_b.jpg"
+      ]
+    },
+    {
+      "id": "a5207934224e",
+      "title": "3 bedroom semi-detached house for sale in Ormston Grove, Leigh, WN7",
+      "price": 199950,
+      "price_display": "£199,950",
+      "location": "Ormston Grove, Leigh",
+      "postcode": "WN7",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 1.5,
+      "added_on": "2026-04-28",
+      "url": "https://repossessedhousesforsale.com/properties/87820047",
+      "scraped_at": "2026-05-12T11:51:51+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87820047/images/img0_360289ef0c26303b4abf558abdf8e955_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87820047/images/img1_63aee5aa56fc8852bc645dfc2797686d_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87820047/images/img2_7349d5ddab556a9a89515a0d6540f450_b.jpg"
+      ]
+    },
+    {
+      "id": "fc40481bfa81",
+      "title": "2 bedroom bungalow for sale in South Close, Rushden, Northamptonshire, NN10",
+      "price": 180000,
+      "price_display": "£180,000",
+      "location": "South Close, Rushden, Northamptonshire",
+      "postcode": "NN10",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 0.0,
+      "added_on": "2026-04-28",
+      "url": "https://repossessedhousesforsale.com/properties/174993572",
+      "scraped_at": "2026-05-12T11:51:49+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174993572/images/img0_e1d942f2925080877c86409791ace613_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174993572/images/img1_bce2821d1d9c86c88291ebd8771bf2d1_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174993572/images/img2_f2f540b981716cffb1c73c6c9000fbd7_b.jpg"
+      ]
+    },
+    {
+      "id": "7cf3a1676b6c",
+      "title": "2 bedroom flat for sale in Canada Wharf, 255 Rotherhithe Street, London, SE16",
+      "price": 675000,
+      "price_display": "£675,000",
+      "location": "Canada Wharf, 255 Rotherhithe Street, London",
+      "postcode": "SE16",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 0.0,
+      "added_on": "2026-04-29",
+      "url": "https://repossessedhousesforsale.com/properties/87822096",
+      "scraped_at": "2026-05-12T11:51:46+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87822096/images/img0_fbf8a0409d762bf6a3fb15302502eae2_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87822096/images/img1_dff2eb3a8a405f66f2c33a74829c1c82_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87822096/images/img2_d6f26567bdb519ce0f61642700bf58ff_b.jpg"
+      ]
+    },
+    {
+      "id": "9fb4141464fc",
+      "title": "2 bedroom semi-detached bungalow for sale in Litchmead Grove, Barrow, Cumbria, LA13",
+      "price": 229950,
+      "price_display": "£229,950",
+      "location": "Litchmead Grove, Barrow, Cumbria",
+      "postcode": "LA13",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 0.0,
+      "added_on": "2026-04-22",
+      "url": "https://repossessedhousesforsale.com/properties/174795515",
+      "scraped_at": "2026-05-12T11:52:11+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174795515/images/img0_4d730ffd3a6f273b36e751435636efb5_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174795515/images/img1_450726fbc46081c03a0e55ca872b364c_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174795515/images/img2_a1aeda5edb51d25927410a71891718be_b.jpg"
+      ]
+    },
+    {
+      "id": "e8efb0f4da6e",
+      "title": "4 bedroom terraced bungalow for sale in Garfield Street, Sunderland, SR4",
+      "price": 80000,
+      "price_display": "£80,000",
+      "location": "Garfield Street, Sunderland",
+      "postcode": "SR4",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 0.0,
+      "added_on": "2026-04-23",
+      "url": "https://repossessedhousesforsale.com/properties/174848600",
+      "scraped_at": "2026-05-12T11:52:06+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174848600/images/img0_38d12524be765b3dd284429a2a0824f8_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174848600/images/img1_7b827b85cbaa4ad61c8c0ef4202ca550_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/17/174848600/images/img2_6af8070969b3166e2036c6c1ade6cf13_b.jpg"
+      ]
+    },
+    {
+      "id": "56b85ebc2e19",
+      "title": "2 bedroom terraced house for sale in Jeavons Lane, Great Cambourne, CB23",
+      "price": 260000,
+      "price_display": "£260,000",
+      "location": "Jeavons Lane, Great Cambourne",
+      "postcode": "CB23",
+      "status": "priced_for_quick_sale",
+      "discount_pct": 6.1,
+      "added_on": "2026-04-29",
+      "url": "https://repossessedhousesforsale.com/properties/87872859",
+      "scraped_at": "2026-05-12T11:51:46+00:00",
+      "images": [
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87872859/images/img0_42772dd74aeaabff3b473bb112e08c36_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87872859/images/img1_5c16b5bbcd2eee53ada6fd914876ef6a_b.jpg",
+        "https://rhfs.ams3.digitaloceanspaces.com/87/87872859/images/img2_c7416c62002fd9dc8a0937b6e1e97384_b.jpg"
+      ]
     }
   ]
 }

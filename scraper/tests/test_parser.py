@@ -31,6 +31,17 @@ def test_page_1_first_listing_fields():
     assert "?pg=" not in sample.url
 
 
+def test_page_1_listings_include_images():
+    listings = parse_listings(_read("page_1.html"))
+    with_imgs = [l for l in listings if l.images]
+    # the site uses an image CDN, every card should have at least one photo
+    assert len(with_imgs) == len(listings)
+    sample = listings[0]
+    for src in sample.images:
+        assert src.startswith("https://"), src
+        assert "digitaloceanspaces.com" in src, src
+
+
 def test_page_2_returns_ten_listings():
     listings = parse_listings(_read("page_2.html"))
     assert len(listings) == 10

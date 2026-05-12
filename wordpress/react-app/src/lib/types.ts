@@ -12,6 +12,7 @@ export interface Listing {
   added_on: string | null;
   url: string;
   scraped_at: string;
+  images?: string[];
 }
 
 export interface Aggregates {

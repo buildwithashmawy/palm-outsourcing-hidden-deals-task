@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
-from typing import Optional
+from dataclasses import asdict, dataclass, field
+from typing import List, Optional
 
 
 @dataclass
@@ -17,6 +17,7 @@ class Listing:
     added_on: Optional[str]
     url: str
     scraped_at: str
+    images: List[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return asdict(self)
