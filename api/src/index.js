@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import cors from 'cors';
 import express from 'express';
 
-import { getAll, getLoadedAt, load } from './lib/store.js';
+import { getAll, getLoadedAt, load, watchFile } from './lib/store.js';
 import listingsRouter from './routes/listings.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +36,9 @@ app.use('/api/listings', listingsRouter);
 
 const n = await load(DATA_PATH);
 console.log(`loaded ${n} listings from ${DATA_PATH}`);
+watchFile(DATA_PATH, (newCount) => {
+  console.log(`reloaded ${newCount} listings`);
+});
 
 app.listen(PORT, () => {
   console.log(`api listening on :${PORT}`);
