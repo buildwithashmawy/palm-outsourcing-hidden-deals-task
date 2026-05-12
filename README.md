@@ -50,7 +50,15 @@ make build        # writes hidden-deals.js + hidden-deals.css into wordpress/plu
 `GET /health` returns `{ ok, listings, loadedAt }`.
 
 `GET /api/listings` accepts `minPrice`, `maxPrice`, `location`, `status`,
-`sort`, `limit`, `offset` and returns `{ count, total, results }`.
+`sort`, `limit`, `offset` and returns `{ count, total, aggregates, results }`.
+The `aggregates` block holds `avgDiscount`, `maxDiscount`, `repossessedCount`,
+and `quickSaleCount` for the full filtered set (not just the current page).
+
+`POST /api/scrape` with `{ maxPages: 1..50 }` spawns a background scrape job
+and returns `202 { job }`. A second call while a job is running returns `409`.
+
+`GET /api/scrape/status` returns `{ job }` with the current progress
+(`status`, `pagesScraped`, `totalListings`, `error`).
 
 Sample requests:
 
@@ -59,6 +67,11 @@ curl 'http://localhost:3000/api/listings?minPrice=100000&maxPrice=200000&sort=pr
 curl 'http://localhost:3000/api/listings?location=DN37'
 curl 'http://localhost:3000/api/listings?status=repossessed&sort=recent'
 curl 'http://localhost:3000/api/listings?sort=banana'   # 400
+
+curl -X POST 'http://localhost:3000/api/scrape' \
+  -H 'content-type: application/json' \
+  -d '{"maxPages": 15}'
+curl 'http://localhost:3000/api/scrape/status'
 ```
 
 A bad parameter produces a 400 with the offending field surfaced:
@@ -74,7 +87,9 @@ A bad parameter produces a 400 with the offending field surfaced:
 
 The API watches `data/listings.json` and reloads it in place. Re-running the
 scraper while the API is up updates `/health`'s `listings` count without a
-restart.
+restart. The `POST /api/scrape` endpoint spawns the Python module directly
+(`python -m scraper.main`); the API resolves the interpreter from
+`./.venv/bin/python` if present, falling back to `python3` on `PATH`.
 
 ## Screenshots
 
@@ -87,10 +102,17 @@ gets `?status=repossessed`, and the table re-sorts:
 
 ![filtered view](screenshots/wp-admin-filtered.png)
 
-Clicking a row opens a detail drawer with price-per-bedroom, location, dates,
-and a link out to the source listing:
+Clicking a row opens a detail drawer with a photo gallery, price-per-bedroom,
+location, dates, and a link out to the source listing:
 
 ![detail drawer](screenshots/dashboard-drawer.png)
+
+The "Refresh data" button in the header runs the Python scraper on demand and
+shows live progress. The table refetches when the job completes:
+
+![scrape running](screenshots/dashboard-scraping.png)
+
+![scrape complete](screenshots/dashboard-updated.png)
 
 ## Design notes
 
@@ -124,16 +146,21 @@ ES modules and WP's default enqueue is classic-script.
 
 ## Known limitations
 
-- No auth on the API. Anyone reachable on the network can hit it.
+- No auth on the API. Anyone reachable on the network can hit it, including
+  the `POST /api/scrape` endpoint that spawns a Python process. Behind a
+  proper auth check, the page-count cap (50) is the only safeguard.
 - CORS is locked to `http://localhost:5173`. When the dashboard is loaded
   inside WP admin (origin `:8080` in my test install), the API call is
   blocked and the dashboard falls back to the bundled `mock.json` (12 real
-  listings). Widening CORS or proxying through WP would fix this — out of
-  scope for the trial.
+  listings, photos included). Widening CORS or proxying through WP would fix
+  this — out of scope for the trial.
 - The scraper is anchored on text patterns and link shape, not class names,
   but a sufficiently aggressive redesign of the source site still breaks it.
-  Out of 101 listings in the seed run, one didn't parse (price preserved,
-  title left empty).
+  Roughly one listing in every hundred fails to parse cleanly (price
+  preserved, title left empty).
+- Property photos are linked, not stored. They hot-link to the source CDN —
+  if the source rotates them, the dashboard shows broken thumbnails until
+  the next scrape.
 - No Docker, no CI. Tests are run by hand (`pytest`, `npm test`).
 - `fs.watch` is a single-machine convenience. A real deployment would push
   the JSON file through a queue or just rebuild the dataset on a cron.

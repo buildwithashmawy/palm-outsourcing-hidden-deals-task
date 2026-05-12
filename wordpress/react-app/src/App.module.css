@@ -9,9 +9,23 @@
 
 .header {
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gap-lg);
+  padding-bottom: var(--gap);
+  flex-wrap: wrap;
+}
+
+.headerLeft {
+  display: flex;
   flex-direction: column;
   gap: 4px;
-  padding-bottom: var(--gap);
+  min-width: 0;
+  flex: 1;
+}
+
+.headerRight {
+  flex: 0 0 auto;
 }
 
 .eyebrow {

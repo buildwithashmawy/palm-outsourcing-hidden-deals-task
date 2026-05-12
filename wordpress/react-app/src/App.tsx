@@ -6,6 +6,7 @@ import { ErrorState } from './components/ErrorState';
 import { Filters } from './components/Filters';
 import { ListingDrawer } from './components/ListingDrawer';
 import { ListingsTable } from './components/ListingsTable';
+import { ScrapeTrigger } from './components/ScrapeTrigger';
 import { SkeletonRows } from './components/SkeletonRows';
 import { StatBar } from './components/StatBar';
 import { useListings } from './hooks/useListings';
@@ -52,11 +53,16 @@ function Dashboard() {
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
-        <div className={styles.eyebrow}>Property data · UK</div>
-        <h1 className={styles.title}>Hidden Deals</h1>
-        <p className={styles.sub}>
-          Repossessed and priced-for-quick-sale listings, scraped from the public feed and refreshed on demand.
-        </p>
+        <div className={styles.headerLeft}>
+          <div className={styles.eyebrow}>Property data · UK</div>
+          <h1 className={styles.title}>Hidden Deals</h1>
+          <p className={styles.sub}>
+            Repossessed and priced-for-quick-sale listings, scraped from the public feed and refreshed on demand.
+          </p>
+        </div>
+        <div className={styles.headerRight}>
+          <ScrapeTrigger />
+        </div>
       </header>
 
       <StatBar total={total} listings={listings} aggregates={aggregates} />

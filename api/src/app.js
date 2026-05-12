@@ -3,6 +3,7 @@ import express from 'express';
 
 import { getAll, getLoadedAt } from './lib/store.js';
 import listingsRouter from './routes/listings.js';
+import scrapeRouter from './routes/scrape.js';
 
 export function createApp() {
   const app = express();
@@ -23,6 +24,7 @@ export function createApp() {
   });
 
   app.use('/api/listings', listingsRouter);
+  app.use('/api/scrape', scrapeRouter);
 
   return app;
 }
