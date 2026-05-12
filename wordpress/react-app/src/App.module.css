@@ -1,0 +1,30 @@
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gap-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: var(--t-xxl);
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.sub {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: var(--t-sm);
+  max-width: 60ch;
+}
