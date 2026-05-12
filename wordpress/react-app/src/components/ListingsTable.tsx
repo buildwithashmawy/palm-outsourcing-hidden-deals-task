@@ -67,6 +67,7 @@ interface Props {
   total: number;
   sort: string | null;
   onSortChange: (next: string | undefined) => void;
+  onSelect: (listing: Listing) => void;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   onLoadMore: () => void;
@@ -77,6 +78,7 @@ export function ListingsTable({
   total,
   sort,
   onSortChange,
+  onSelect,
   hasNextPage,
   isFetchingNextPage,
   onLoadMore,
@@ -133,10 +135,13 @@ export function ListingsTable({
             <tr
               key={row.id}
               className={styles.row}
-              onClick={() => window.open(row.original.url, '_blank', 'noopener')}
+              onClick={() => onSelect(row.original)}
               tabIndex={0}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') window.open(row.original.url, '_blank', 'noopener');
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onSelect(row.original);
+                }
               }}
             >
               {row.getVisibleCells().map((cell) => (

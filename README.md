@@ -87,6 +87,11 @@ gets `?status=repossessed`, and the table re-sorts:
 
 ![filtered view](screenshots/wp-admin-filtered.png)
 
+Clicking a row opens a detail drawer with price-per-bedroom, location, dates,
+and a link out to the source listing:
+
+![detail drawer](screenshots/dashboard-drawer.png)
+
 ## Design notes
 
 A monorepo because the three projects only make sense together — the API

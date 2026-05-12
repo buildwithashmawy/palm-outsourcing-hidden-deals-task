@@ -1,14 +1,16 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { EmptyState } from './components/EmptyState';
 import { ErrorState } from './components/ErrorState';
 import { Filters } from './components/Filters';
+import { ListingDrawer } from './components/ListingDrawer';
 import { ListingsTable } from './components/ListingsTable';
 import { SkeletonRows } from './components/SkeletonRows';
 import { StatBar } from './components/StatBar';
 import { useListings } from './hooks/useListings';
 import { useUrlFilters } from './hooks/useUrlFilters';
+import type { Listing } from './lib/types';
 import styles from './App.module.css';
 
 const client = new QueryClient({
@@ -45,6 +47,8 @@ function Dashboard() {
   const sort = params.get('sort');
   const onSortChange = useCallback((next: string | undefined) => patch({ sort: next }), [patch]);
 
+  const [selected, setSelected] = useState<Listing | null>(null);
+
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
@@ -69,11 +73,13 @@ function Dashboard() {
           total={total}
           sort={sort}
           onSortChange={onSortChange}
+          onSelect={setSelected}
           hasNextPage={!!hasNextPage}
           isFetchingNextPage={isFetchingNextPage}
           onLoadMore={loadMore}
         />
       )}
+      <ListingDrawer listing={selected} onClose={() => setSelected(null)} />
     </div>
   );
 }
