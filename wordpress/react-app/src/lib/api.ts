@@ -16,10 +16,29 @@ export function resolveApiUrl(): string {
   return import.meta.env.VITE_API_URL || 'http://localhost:3000';
 }
 
+async function fromMock(): Promise<ListingsResponse> {
+  const res = await fetch('mock.json');
+  if (!res.ok) throw new Error(`mock unavailable (${res.status})`);
+  return res.json();
+}
+
 export async function fetchListings(params: URLSearchParams): Promise<ListingsResponse> {
   const base = resolveApiUrl();
   const url = `${base.replace(/\/$/, '')}/api/listings?${params.toString()}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`api error ${res.status}`);
-  return res.json();
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      if (res.status === 400) {
+        const body = await res.json().catch(() => null);
+        const issue = body?.issues?.[0];
+        throw new Error(issue ? `${issue.path}: ${issue.message}` : `api ${res.status}`);
+      }
+      throw new Error(`api ${res.status}`);
+    }
+    return res.json();
+  } catch (err) {
+    if (err instanceof Error && err.message.startsWith('api ')) throw err;
+    // network failure or CORS: fall back to bundled mock
+    return fromMock();
+  }
 }

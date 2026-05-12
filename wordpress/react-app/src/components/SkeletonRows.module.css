@@ -1,0 +1,41 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  gap: 16px;
+  padding: 16px 14px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.cell {
+  height: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: 2px;
+  animation: shimmer 1.4s linear infinite;
+}
+
+.cellWide {
+  max-width: 70%;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

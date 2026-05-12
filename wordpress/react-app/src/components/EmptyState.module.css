@@ -1,0 +1,15 @@
+.empty {
+  padding: 56px var(--gap-lg);
+  text-align: center;
+  border: 1px dashed var(--rule-strong);
+  border-radius: 4px;
+}
+
+.line {
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--t-lg);
+  font-weight: 400;
+  color: var(--text-soft);
+  letter-spacing: -0.01em;
+}

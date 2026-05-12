@@ -1,14 +1,19 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
+import { EmptyState } from './components/EmptyState';
+import { ErrorState } from './components/ErrorState';
 import { Filters } from './components/Filters';
 import { ListingsTable } from './components/ListingsTable';
+import { SkeletonRows } from './components/SkeletonRows';
 import { StatBar } from './components/StatBar';
 import { useListings } from './hooks/useListings';
 import { useUrlFilters } from './hooks/useUrlFilters';
 import styles from './App.module.css';
 
-const client = new QueryClient();
+const client = new QueryClient({
+  defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
+});
 
 function Dashboard() {
   const { params, patch } = useUrlFilters();
@@ -17,7 +22,7 @@ function Dashboard() {
     p.set('limit', '200');
     return p;
   }, [params]);
-  const { data, isLoading, error } = useListings(queryParams);
+  const { data, isLoading, error, refetch } = useListings(queryParams);
 
   const listings = data?.results ?? [];
 
@@ -31,9 +36,12 @@ function Dashboard() {
       </header>
       <StatBar total={data?.total ?? 0} listings={listings} />
       <Filters params={params} onChange={patch} />
-      {error && <div className={styles.message}>Something went wrong loading listings.</div>}
-      {isLoading && <div className={styles.message}>Loading…</div>}
-      {!isLoading && !error && <ListingsTable listings={listings} />}
+      {isLoading && <SkeletonRows />}
+      {!isLoading && error && (
+        <ErrorState message={(error as Error).message} onRetry={() => refetch()} />
+      )}
+      {!isLoading && !error && listings.length === 0 && <EmptyState />}
+      {!isLoading && !error && listings.length > 0 && <ListingsTable listings={listings} />}
     </div>
   );
 }
