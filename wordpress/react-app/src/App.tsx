@@ -1,16 +1,23 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
+import { Filters } from './components/Filters';
 import { ListingsTable } from './components/ListingsTable';
 import { StatBar } from './components/StatBar';
 import { useListings } from './hooks/useListings';
+import { useUrlFilters } from './hooks/useUrlFilters';
 import styles from './App.module.css';
 
 const client = new QueryClient();
 
 function Dashboard() {
-  const params = useMemo(() => new URLSearchParams({ limit: '200' }), []);
-  const { data, isLoading, error } = useListings(params);
+  const { params, patch } = useUrlFilters();
+  const queryParams = useMemo(() => {
+    const p = new URLSearchParams(params);
+    p.set('limit', '200');
+    return p;
+  }, [params]);
+  const { data, isLoading, error } = useListings(queryParams);
 
   const listings = data?.results ?? [];
 
@@ -23,8 +30,9 @@ function Dashboard() {
         </p>
       </header>
       <StatBar total={data?.total ?? 0} listings={listings} />
-      {error && <div>Something went wrong loading listings.</div>}
-      {isLoading && <div>Loading…</div>}
+      <Filters params={params} onChange={patch} />
+      {error && <div className={styles.message}>Something went wrong loading listings.</div>}
+      {isLoading && <div className={styles.message}>Loading…</div>}
       {!isLoading && !error && <ListingsTable listings={listings} />}
     </div>
   );

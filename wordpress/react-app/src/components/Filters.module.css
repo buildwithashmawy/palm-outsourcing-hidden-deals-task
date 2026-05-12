@@ -1,0 +1,110 @@
+.bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding: var(--gap-lg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr;
+  gap: var(--gap);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 8px 10px;
+  font-family: var(--sans);
+  font-size: var(--t-sm);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.input::placeholder {
+  color: var(--muted);
+}
+
+.input:focus {
+  border-color: var(--accent);
+}
+
+.pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 6px 10px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--text-soft);
+  background: transparent;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+
+.pill:hover {
+  color: var(--text);
+  border-color: var(--rule-strong);
+}
+
+.pillOn {
+  background: rgba(15, 118, 110, 0.12);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 1.5em;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(15, 118, 110, 0.16);
+  color: var(--text);
+  font-size: var(--t-xs);
+  border-radius: 2px;
+  border: 1px solid rgba(15, 118, 110, 0.32);
+  font-variant-numeric: tabular-nums;
+}
+
+.chip:hover {
+  background: rgba(15, 118, 110, 0.22);
+}
+
+.chipX {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .row {
+    grid-template-columns: 1fr 1fr;
+  }
+}

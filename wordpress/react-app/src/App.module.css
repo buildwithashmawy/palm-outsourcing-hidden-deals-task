@@ -28,3 +28,11 @@
   font-size: var(--t-sm);
   max-width: 60ch;
 }
+
+.message {
+  padding: var(--gap-lg);
+  text-align: center;
+  color: var(--text-soft);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
