@@ -12,7 +12,10 @@ const QuerySchema = z.object({
   minPrice: intish.optional(),
   maxPrice: intish.optional(),
   location: z.string().min(1).max(120).optional(),
-  status: z.enum(['repossessed', 'priced_for_quick_sale']).optional(),
+  status: z.preprocess(
+    (v) => (typeof v === 'string' ? v.toLowerCase() : v),
+    z.enum(['repossessed', 'priced_for_quick_sale']),
+  ).optional(),
   sort: z.enum(['price_asc', 'price_desc', 'recent']).optional(),
   limit: intish.max(200).default(50),
   offset: intish.default(0),
