@@ -1,8 +1,11 @@
 :root {
   --ink: #0E1116;
+  --ink-2: #14181F;
   --paper: #F6F2EA;
   --accent: #0F766E;
+  --accent-soft: rgba(15, 118, 110, 0.14);
   --accent-warm: #C2410C;
+  --warm-soft: rgba(194, 65, 12, 0.14);
   --rule: rgba(255, 255, 255, 0.08);
   --rule-strong: rgba(255, 255, 255, 0.16);
   --muted: #8A9099;
@@ -18,7 +21,9 @@
   --t-lg: 1.25rem;
   --t-xl: 1.75rem;
   --t-xxl: 2.5rem;
+  --t-hero: 4.5rem;
 
   --gap: 12px;
   --gap-lg: 24px;
+  --gap-xl: 40px;
 }

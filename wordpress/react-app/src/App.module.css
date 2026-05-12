@@ -1,7 +1,7 @@
 .shell {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: var(--gap-lg);
+  padding: var(--gap-xl) var(--gap-lg) var(--gap-xl);
   display: flex;
   flex-direction: column;
   gap: var(--gap-lg);
@@ -11,22 +11,34 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  padding-bottom: var(--gap);
+}
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
 }
 
 .title {
   font-family: var(--display);
-  font-weight: 500;
-  font-size: var(--t-xxl);
-  margin: 0;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-size: 3.25rem;
+  line-height: 1;
+  margin: 8px 0 0;
+  letter-spacing: -0.03em;
   color: var(--text);
 }
 
 .sub {
-  margin: 0;
+  margin: 6px 0 0;
   color: var(--text-soft);
   font-size: var(--t-sm);
-  max-width: 60ch;
+  max-width: 64ch;
+  line-height: 1.55;
 }
 
 .message {
@@ -35,4 +47,8 @@
   color: var(--text-soft);
   border: 1px solid var(--rule);
   border-radius: 4px;
+}
+
+@media (max-width: 720px) {
+  .title { font-size: 2.5rem; }
 }

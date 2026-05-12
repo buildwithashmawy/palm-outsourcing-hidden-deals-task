@@ -19,9 +19,11 @@ export function Filters({ params, onChange }: Props) {
 
   const activeChips: { key: string; label: string }[] = [];
   if (location) activeChips.push({ key: 'location', label: `location: ${location}` });
-  if (minPrice) activeChips.push({ key: 'minPrice', label: `min: £${Number(minPrice).toLocaleString('en-GB')}` });
-  if (maxPrice) activeChips.push({ key: 'maxPrice', label: `max: £${Number(maxPrice).toLocaleString('en-GB')}` });
+  if (minPrice) activeChips.push({ key: 'minPrice', label: `min £${Number(minPrice).toLocaleString('en-GB')}` });
+  if (maxPrice) activeChips.push({ key: 'maxPrice', label: `max £${Number(maxPrice).toLocaleString('en-GB')}` });
   if (status) activeChips.push({ key: 'status', label: formatStatus(status) });
+
+  const clearAll = () => onChange({ location: undefined, minPrice: undefined, maxPrice: undefined, status: undefined });
 
   return (
     <div className={styles.bar}>
@@ -81,15 +83,16 @@ export function Filters({ params, onChange }: Props) {
         </div>
       </div>
       <div className={styles.chipsRow}>
+        {activeChips.length > 0 && <span className={styles.chipsLabel}>Active</span>}
         <AnimatePresence initial={false}>
           {activeChips.map((c) => (
             <motion.button
               key={c.key}
               type="button"
               className={styles.chip}
-              initial={{ opacity: 0, y: -4 }}
+              initial={{ opacity: 0, y: -3 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
+              exit={{ opacity: 0, y: -3 }}
               transition={{ duration: 0.16, ease: 'easeOut' }}
               onClick={() => onChange({ [c.key]: undefined })}
               aria-label={`Clear ${c.key}`}
@@ -99,6 +102,11 @@ export function Filters({ params, onChange }: Props) {
             </motion.button>
           ))}
         </AnimatePresence>
+        {activeChips.length > 1 && (
+          <button type="button" className={styles.clearAll} onClick={clearAll}>
+            Clear all
+          </button>
+        )}
       </div>
     </div>
   );
