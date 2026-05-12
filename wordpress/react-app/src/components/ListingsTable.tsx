@@ -2,63 +2,95 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
-  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import type { SortingState } from '@tanstack/react-table';
-import { useState } from 'react';
 
 import { formatDate, formatPrice, formatStatus } from '../lib/priceFormat';
+import { nextSort, sortToTanstack } from '../lib/sort';
 import type { Listing } from '../lib/types';
+import { Sentinel } from './Sentinel';
 import styles from './ListingsTable.module.css';
 
 const col = createColumnHelper<Listing>();
 
-const columns = [
+const baseColumns = [
   col.accessor('title', {
+    id: 'title',
     header: 'Property',
-    cell: (info) => info.getValue() || '—',
+    cell: (info) => <span className={styles.titleCell}>{info.getValue() || '—'}</span>,
     enableSorting: false,
   }),
-  col.accessor('postcode', { header: 'Postcode' }),
+  col.accessor('postcode', {
+    id: 'postcode',
+    header: 'Postcode',
+    cell: (info) => <span className={styles.postcodeCell}>{info.getValue() || '—'}</span>,
+    enableSorting: false,
+  }),
   col.accessor('price', {
+    id: 'price',
     header: 'Price',
     cell: (info) => <span className={styles.priceCell}>{formatPrice(info.getValue())}</span>,
   }),
   col.accessor('discount_pct', {
+    id: 'discount_pct',
     header: 'Discount',
+    enableSorting: false,
     cell: (info) => {
       const v = info.getValue();
-      if (v == null) return '—';
+      if (v == null) return <span className={styles.dim}>—</span>;
       return <span className={styles.discount}>{v.toFixed(1)}%</span>;
     },
   }),
   col.accessor('status', {
+    id: 'status',
     header: 'Status',
+    enableSorting: false,
     cell: (info) => {
       const v = info.getValue();
-      return <span className={`${styles.pill} ${styles[`pill_${v}`]}`}>{formatStatus(v)}</span>;
+      return (
+        <span className={`${styles.pill} ${styles[`pill_${v}`]}`}>
+          <span className={styles.pillDot} aria-hidden />
+          {formatStatus(v)}
+        </span>
+      );
     },
   }),
   col.accessor('added_on', {
+    id: 'added_on',
     header: 'Added',
-    cell: (info) => formatDate(info.getValue()),
+    cell: (info) => <span className={styles.dateCell}>{formatDate(info.getValue())}</span>,
   }),
 ];
 
 interface Props {
   listings: Listing[];
+  total: number;
+  sort: string | null;
+  onSortChange: (next: string | undefined) => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+  onLoadMore: () => void;
 }
 
-export function ListingsTable({ listings }: Props) {
-  const [sorting, setSorting] = useState<SortingState>([{ id: 'added_on', desc: true }]);
+export function ListingsTable({
+  listings,
+  total,
+  sort,
+  onSortChange,
+  hasNextPage,
+  isFetchingNextPage,
+  onLoadMore,
+}: Props) {
   const table = useReactTable({
     data: listings,
-    columns,
-    state: { sorting },
-    onSortingChange: setSorting,
+    columns: baseColumns,
+    state: { sorting: sortToTanstack(sort) },
+    manualSorting: true,
+    onSortingChange: () => {
+      // intentional: header click is handled below; tanstack's default state
+      // doesn't know our 3-way / 2-way custom cycles
+    },
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
   });
 
   return (
@@ -73,14 +105,23 @@ export function ListingsTable({ listings }: Props) {
                 return (
                   <th
                     key={h.id}
-                    onClick={sortable ? h.column.getToggleSortingHandler() : undefined}
-                    className={sortable ? styles.sortable : undefined}
-                    aria-sort={
-                      dir === 'asc' ? 'ascending' : dir === 'desc' ? 'descending' : 'none'
-                    }
+                    className={`${styles.th} ${sortable ? styles.sortable : ''} ${styles[`col_${h.column.id}`] || ''}`}
+                    aria-sort={dir === 'asc' ? 'ascending' : dir === 'desc' ? 'descending' : 'none'}
+                    onClick={sortable ? () => onSortChange(nextSort(sort, h.column.id)) : undefined}
+                    tabIndex={sortable ? 0 : -1}
+                    onKeyDown={(e) => {
+                      if (sortable && (e.key === 'Enter' || e.key === ' ')) {
+                        e.preventDefault();
+                        onSortChange(nextSort(sort, h.column.id));
+                      }
+                    }}
                   >
                     {flexRender(h.column.columnDef.header, h.getContext())}
-                    {sortable && <span className={styles.sortIcon}>{dir === 'asc' ? '↑' : dir === 'desc' ? '↓' : ''}</span>}
+                    {sortable && (
+                      <span className={styles.sortIcon} data-state={dir || 'none'}>
+                        {dir === 'asc' ? '↑' : dir === 'desc' ? '↓' : '↕'}
+                      </span>
+                    )}
                   </th>
                 );
               })}
@@ -99,12 +140,36 @@ export function ListingsTable({ listings }: Props) {
               }}
             >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                <td key={cell.id} className={`${styles.td} ${styles[`col_${cell.column.id}`] || ''}`}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
+
+      <Sentinel enabled={hasNextPage && !isFetchingNextPage} onEnter={onLoadMore} />
+
+      <div className={styles.tail}>
+        {isFetchingNextPage && (
+          <div className={styles.loading}>
+            <span className={styles.dot} />
+            <span className={styles.dot} />
+            <span className={styles.dot} />
+            <span className={styles.loadingLabel}>loading more</span>
+          </div>
+        )}
+        {!hasNextPage && listings.length > 0 && (
+          <div className={styles.end}>
+            <span className={styles.endRule} />
+            <span className={styles.endLabel}>
+              all caught up · {total} listing{total === 1 ? '' : 's'}
+            </span>
+            <span className={styles.endRule} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

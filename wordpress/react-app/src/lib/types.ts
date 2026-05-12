@@ -14,8 +14,16 @@ export interface Listing {
   scraped_at: string;
 }
 
+export interface Aggregates {
+  avgDiscount: number | null;
+  maxDiscount: number | null;
+  repossessedCount: number;
+  quickSaleCount: number;
+}
+
 export interface ListingsResponse {
   count: number;
   total: number;
+  aggregates?: Aggregates;
   results: Listing[];
 }

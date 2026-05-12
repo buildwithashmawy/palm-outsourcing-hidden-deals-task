@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { EmptyState } from './components/EmptyState';
 import { ErrorState } from './components/ErrorState';
@@ -25,29 +25,55 @@ function Dashboard() {
       const v = params.get(k);
       if (v) p.set(k, v);
     }
-    p.set('limit', '200');
     return p;
   }, [params]);
-  const { data, isLoading, error, refetch } = useListings(queryParams);
 
-  const listings = data?.results ?? [];
+  const { data, isLoading, error, refetch, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useListings(queryParams);
+
+  const listings = useMemo(
+    () => data?.pages.flatMap((page) => page.results) ?? [],
+    [data],
+  );
+  const total = data?.pages[0]?.total ?? 0;
+  const aggregates = data?.pages[0]?.aggregates;
+
+  const loadMore = useCallback(() => {
+    if (hasNextPage && !isFetchingNextPage) fetchNextPage();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const sort = params.get('sort');
+  const onSortChange = useCallback((next: string | undefined) => patch({ sort: next }), [patch]);
 
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
+        <div className={styles.eyebrow}>Property data · UK</div>
         <h1 className={styles.title}>Hidden Deals</h1>
         <p className={styles.sub}>
-          Repossessed and priced-for-quick-sale listings, refreshed from the public feed.
+          Repossessed and priced-for-quick-sale listings, scraped from the public feed and refreshed on demand.
         </p>
       </header>
-      <StatBar total={data?.total ?? 0} listings={listings} />
+
+      <StatBar total={total} listings={listings} aggregates={aggregates} />
       <Filters params={params} onChange={patch} />
+
       {isLoading && <SkeletonRows />}
       {!isLoading && error && (
         <ErrorState message={(error as Error).message} onRetry={() => refetch()} />
       )}
       {!isLoading && !error && listings.length === 0 && <EmptyState />}
-      {!isLoading && !error && listings.length > 0 && <ListingsTable listings={listings} />}
+      {!isLoading && !error && listings.length > 0 && (
+        <ListingsTable
+          listings={listings}
+          total={total}
+          sort={sort}
+          onSortChange={onSortChange}
+          hasNextPage={!!hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          onLoadMore={loadMore}
+        />
+      )}
     </div>
   );
 }

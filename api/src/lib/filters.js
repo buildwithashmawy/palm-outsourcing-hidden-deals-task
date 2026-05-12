@@ -30,9 +30,22 @@ export function applyFilters(listings, q) {
   }
 
   const total = out.length;
+  const aggregates = computeAggregates(out);
+
   const offset = q.offset ?? 0;
   const limit = q.limit ?? 50;
   const results = out.slice(offset, offset + limit);
 
-  return { count: results.length, total, results };
+  return { count: results.length, total, aggregates, results };
+}
+
+function computeAggregates(rows) {
+  const discounts = rows.map((r) => r.discount_pct).filter((d) => typeof d === 'number');
+  const repo = rows.filter((r) => r.status === 'repossessed').length;
+  return {
+    avgDiscount: discounts.length ? discounts.reduce((a, b) => a + b, 0) / discounts.length : null,
+    maxDiscount: discounts.length ? Math.max(...discounts) : null,
+    repossessedCount: repo,
+    quickSaleCount: rows.length - repo,
+  };
 }
