@@ -1,0 +1,94 @@
+.wrap {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-sm);
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--ink);
+  text-align: left;
+  padding: 10px 14px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: var(--t-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule-strong);
+  user-select: none;
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+.sortable:hover {
+  color: var(--text);
+}
+
+.sortIcon {
+  margin-left: 6px;
+  color: var(--accent);
+}
+
+.table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+}
+
+.row {
+  cursor: pointer;
+  position: relative;
+}
+
+.row:hover {
+  background: rgba(15, 118, 110, 0.06);
+  box-shadow: inset 1px 0 0 var(--accent);
+}
+
+.priceCell {
+  font-family: var(--display);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--t-md);
+  font-weight: 500;
+}
+
+.discount {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-size: var(--t-xs);
+  font-variant-numeric: tabular-nums;
+  background: rgba(15, 118, 110, 0.12);
+  color: #5EB2A9;
+}
+
+.pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+.pill_repossessed {
+  background: rgba(194, 65, 12, 0.14);
+  color: #E8835F;
+}
+
+.pill_priced_for_quick_sale {
+  background: rgba(15, 118, 110, 0.14);
+  color: #5EB2A9;
+}
