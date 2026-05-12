@@ -9,8 +9,10 @@ export interface ScrapeJob {
   startedAt: string;
   finishedAt: string | null;
   maxPages: number;
+  effectiveMaxPages: number;
   pagesScraped: number;
   totalListings: number | null;
+  sourceTotalPages: number | null;
   error: string | null;
 }
 

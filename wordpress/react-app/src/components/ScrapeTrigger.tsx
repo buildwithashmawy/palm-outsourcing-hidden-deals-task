@@ -40,7 +40,8 @@ export function ScrapeTrigger() {
   const errorMessage = errored
     ? (start.error as Error | undefined)?.message || job?.error || 'something went wrong'
     : null;
-  const progress = running && job ? job.pagesScraped / job.maxPages : 0;
+  const denominator = running && job ? job.effectiveMaxPages || job.maxPages : 0;
+  const progress = running && job && denominator ? job.pagesScraped / denominator : 0;
 
   return (
     <div className={styles.wrap}>
@@ -69,7 +70,7 @@ export function ScrapeTrigger() {
           <span className={styles.icon} aria-hidden>↻</span>
           <span className={styles.buttonText}>
             {running
-              ? `scraping ${job!.pagesScraped} / ${job!.maxPages}`
+              ? `scraping ${job!.pagesScraped} / ${denominator}`
               : start.isPending
                 ? 'starting…'
                 : 'refresh data'}
@@ -105,6 +106,7 @@ export function ScrapeTrigger() {
               <span className={styles.dot} />
               updated {relativeTime(job.finishedAt || job.startedAt)}
               {job.totalListings != null ? ` · ${job.totalListings} listings` : ''}
+              {job.sourceTotalPages ? ` · source has ${job.sourceTotalPages} pages` : ''}
             </motion.span>
           )}
           {!running && errored && (

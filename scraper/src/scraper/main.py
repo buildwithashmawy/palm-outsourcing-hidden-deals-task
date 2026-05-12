@@ -10,7 +10,7 @@ from pathlib import Path
 
 from .http import fetch, make_session, polite_sleep
 from .models import Listing
-from .parser import parse_listings
+from .parser import extract_total_pages, parse_listings
 
 log = logging.getLogger("scraper")
 
@@ -46,10 +46,20 @@ def main(argv: list[str] | None = None) -> int:
     )
     session = make_session()
     seen: dict[str, Listing] = {}
+    effective_max = args.max_pages
     for page in range(1, args.max_pages + 1):
         url = LIST_URL.format(page=page)
         log.info("fetching page %d", page)
         html = fetch(session, url)
+
+        if page == 1:
+            site_total = extract_total_pages(html)
+            if site_total:
+                log.info("source advertises %d pages", site_total)
+                if site_total < effective_max:
+                    log.info("capping run at %d (source max)", site_total)
+                    effective_max = site_total
+
         page_listings = parse_listings(html)
         new = 0
         for l in page_listings:
@@ -58,8 +68,13 @@ def main(argv: list[str] | None = None) -> int:
             seen[l.id] = l
             new += 1
         log.info("  parsed %d listings, %d new", len(page_listings), new)
-        if page < args.max_pages:
-            polite_sleep(*args.delay)
+
+        if not page_listings and page > 1:
+            log.info("no listings on page %d, stopping early", page)
+            break
+        if page >= effective_max:
+            break
+        polite_sleep(*args.delay)
 
     write_atomic(args.out, list(seen.values()))
     log.info("wrote %d listings to %s", len(seen), args.out)

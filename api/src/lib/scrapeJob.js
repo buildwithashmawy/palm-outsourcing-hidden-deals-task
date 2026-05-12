@@ -5,6 +5,8 @@ import { randomUUID } from 'node:crypto';
 
 const PROGRESS_RE = /fetching page (\d+)/i;
 const DONE_RE = /wrote (\d+) listings/i;
+const SOURCE_TOTAL_RE = /source advertises (\d+) pages/i;
+const CAPPED_RE = /capping run at (\d+)/i;
 
 let current = null;
 
@@ -48,6 +50,10 @@ export function startScrape({ maxPages, repoRoot }) {
     if (p) job.pagesScraped = Math.max(job.pagesScraped, parseInt(p[1], 10));
     const d = text.match(DONE_RE);
     if (d) job.totalListings = parseInt(d[1], 10);
+    const s = text.match(SOURCE_TOTAL_RE);
+    if (s) job.sourceTotalPages = parseInt(s[1], 10);
+    const c = text.match(CAPPED_RE);
+    if (c) job.effectiveMaxPages = parseInt(c[1], 10);
   });
 
   child.on('error', (err) => {

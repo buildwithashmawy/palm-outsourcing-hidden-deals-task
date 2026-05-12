@@ -23,6 +23,21 @@ POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*$")
 PRICE_RE = re.compile(r"(?:£\s*)?(\d{1,3}(?:,\d{3})+|\d{5,})")
 IMAGE_HOST_RE = re.compile(r"^https?://[\w.-]*digitaloceanspaces\.com/", re.I)
 MAX_IMAGES_PER_LISTING = 6
+PAGINATION_PG_RE = re.compile(r"[?&]pg=(\d+)")
+
+
+def extract_total_pages(html: str) -> Optional[int]:
+    """find the largest ?pg= integer anywhere on the page (pagination links)."""
+    soup = BeautifulSoup(html, "html.parser")
+    biggest = 0
+    for a in soup.find_all("a", href=True):
+        m = PAGINATION_PG_RE.search(a["href"])
+        if not m:
+            continue
+        n = int(m.group(1))
+        if n > biggest:
+            biggest = n
+    return biggest or None
 
 
 def _canonical_url(href: str) -> str:

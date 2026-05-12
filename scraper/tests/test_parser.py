@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scraper.parser import parse_listings
+from scraper.parser import extract_total_pages, parse_listings
 
 
 FIX = Path(__file__).parent / "fixtures"
@@ -104,3 +104,14 @@ def test_missing_discount_is_none():
     assert len(listings) == 1
     assert listings[0].discount_pct is None
     assert listings[0].price == 250000
+
+
+def test_extract_total_pages_picks_largest_pg_link():
+    total = extract_total_pages(_read("page_1.html"))
+    # the saved fixture shows pagination numbered up to 713
+    assert total is not None
+    assert total >= 700
+
+
+def test_extract_total_pages_returns_none_when_no_pagination():
+    assert extract_total_pages("<html><body>no links</body></html>") is None

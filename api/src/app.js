@@ -8,7 +8,11 @@ import scrapeRouter from './routes/scrape.js';
 export function createApp() {
   const app = express();
 
-  app.use(cors({ origin: 'http://localhost:5173' }));
+  const corsOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173,http://localhost:8080')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  app.use(cors({ origin: corsOrigins }));
 
   app.use((req, res, next) => {
     const start = Date.now();

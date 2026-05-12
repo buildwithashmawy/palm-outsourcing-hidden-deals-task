@@ -56,9 +56,13 @@ and `quickSaleCount` for the full filtered set (not just the current page).
 
 `POST /api/scrape` with `{ maxPages: 1..50 }` spawns a background scrape job
 and returns `202 { job }`. A second call while a job is running returns `409`.
+The scraper reads the source's pagination on its first fetch and caps the run
+at the smaller of `maxPages` and the site's advertised page count — both
+numbers are reported back in the job (`maxPages`, `effectiveMaxPages`,
+`sourceTotalPages`).
 
 `GET /api/scrape/status` returns `{ job }` with the current progress
-(`status`, `pagesScraped`, `totalListings`, `error`).
+(`status`, `pagesScraped`, `totalListings`, `sourceTotalPages`, `error`).
 
 Sample requests:
 
@@ -149,11 +153,10 @@ ES modules and WP's default enqueue is classic-script.
 - No auth on the API. Anyone reachable on the network can hit it, including
   the `POST /api/scrape` endpoint that spawns a Python process. Behind a
   proper auth check, the page-count cap (50) is the only safeguard.
-- CORS is locked to `http://localhost:5173`. When the dashboard is loaded
-  inside WP admin (origin `:8080` in my test install), the API call is
-  blocked and the dashboard falls back to the bundled `mock.json` (12 real
-  listings, photos included). Widening CORS or proxying through WP would fix
-  this — out of scope for the trial.
+- CORS allows `http://localhost:5173` and `http://localhost:8080` by default
+  (the Vite dev server and a local WP admin). Override with `CORS_ORIGINS`
+  as a comma-separated list. Without a matching origin the dashboard falls
+  back to the bundled `mock.json` (12 real listings, photos included).
 - The scraper is anchored on text patterns and link shape, not class names,
   but a sufficiently aggressive redesign of the source site still breaks it.
   Roughly one listing in every hundred fails to parse cleanly (price
