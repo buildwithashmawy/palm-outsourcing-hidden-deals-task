@@ -15,10 +15,16 @@ const client = new QueryClient({
   defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
 });
 
+const FILTER_KEYS = ['minPrice', 'maxPrice', 'location', 'status', 'sort'] as const;
+
 function Dashboard() {
   const { params, patch } = useUrlFilters();
   const queryParams = useMemo(() => {
-    const p = new URLSearchParams(params);
+    const p = new URLSearchParams();
+    for (const k of FILTER_KEYS) {
+      const v = params.get(k);
+      if (v) p.set(k, v);
+    }
     p.set('limit', '200');
     return p;
   }, [params]);

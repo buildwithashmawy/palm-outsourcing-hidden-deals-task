@@ -17,7 +17,12 @@ export function resolveApiUrl(): string {
 }
 
 async function fromMock(): Promise<ListingsResponse> {
-  const res = await fetch('mock.json');
+  // in a built bundle the script and mock.json sit side by side inside the
+  // plugin folder; in dev mode Vite serves public/ at the origin root.
+  const url = import.meta.env.PROD
+    ? new URL('mock.json', import.meta.url).toString()
+    : '/mock.json';
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`mock unavailable (${res.status})`);
   return res.json();
 }

@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 // to land at hidden-deals.js + hidden-deals.css with stable names.
 export default defineConfig({
   plugins: [react()],
+  base: './',
   server: {
     port: 5173,
   },

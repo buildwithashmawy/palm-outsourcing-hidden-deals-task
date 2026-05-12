@@ -52,6 +52,14 @@ add_action('admin_enqueue_scripts', function ($hook) {
     ]);
 });
 
+// Vite ships ES modules; WP enqueues as classic scripts by default.
+add_filter('script_loader_tag', function ($tag, $handle, $src) {
+    if ($handle !== 'hidden-deals') {
+        return $tag;
+    }
+    return '<script type="module" src="' . esc_url($src) . '" id="' . esc_attr($handle) . '-js"></script>' . "\n";
+}, 10, 3);
+
 add_filter('plugin_action_links_' . plugin_basename(HD_PLUGIN_FILE), function ($links) {
     $url = admin_url('admin.php?page=hidden-deals');
     array_unshift($links, '<a href="' . esc_url($url) . '">Open dashboard</a>');
