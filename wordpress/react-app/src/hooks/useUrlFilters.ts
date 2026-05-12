@@ -1,30 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useCallback } from 'react';
 
 import { applyPatch, type FilterPatch } from '../lib/urlState';
 
-function read(): URLSearchParams {
-  if (typeof window === 'undefined') return new URLSearchParams();
-  return new URLSearchParams(window.location.search);
-}
-
 export function useUrlFilters() {
-  const [params, setParams] = useState<URLSearchParams>(read);
+  const [params, setParams] = useSearchParams();
 
-  useEffect(() => {
-    const onPop = () => setParams(read());
-    window.addEventListener('popstate', onPop);
-    return () => window.removeEventListener('popstate', onPop);
-  }, []);
-
-  const patch = useCallback((next: FilterPatch) => {
-    setParams((curr) => {
-      const merged = applyPatch(curr, next);
-      const qs = merged.toString();
-      const url = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
-      window.history.replaceState(null, '', url);
-      return merged;
-    });
-  }, []);
+  const patch = useCallback(
+    (next: FilterPatch) => {
+      setParams(applyPatch(params, next), { replace: true });
+    },
+    [params, setParams],
+  );
 
   return { params, patch };
 }

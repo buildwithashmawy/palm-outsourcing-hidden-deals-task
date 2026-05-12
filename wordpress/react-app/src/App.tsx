@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import { Filters } from './components/Filters';
 import { ListingsTable } from './components/ListingsTable';
@@ -41,7 +42,9 @@ function Dashboard() {
 export function App() {
   return (
     <QueryClientProvider client={client}>
-      <Dashboard />
+      <BrowserRouter>
+        <Dashboard />
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }
